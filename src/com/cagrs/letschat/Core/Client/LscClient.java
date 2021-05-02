@@ -10,11 +10,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 public class LscClient {
 
-    private static LanguageReader lr = new LanguageReader();
+    public static LanguageReader lr = new LanguageReader();
 
     private static final int defaultPort = 32768;
 
@@ -41,7 +40,7 @@ public class LscClient {
      * @param name
      * @return
      */
-    private Message getModuleMessage (String name)
+    public Message getModuleMessage (String name)
     {
         for (int i = MessageModuleNameList.size(); i >= 0; i --)
         {
@@ -61,11 +60,16 @@ public class LscClient {
      */
     public LscClient (MessageManager messageManager, int port) throws IOException
     {
+        boolean isHint = false;
+
         while (true) {
 
             try
             {
                 this.messageManager = messageManager;
+
+                // 将客户端输入管理器以提供 聊天信息处理功能
+                messageManager.inputClient(this);
 
                 serverSocket = new ServerSocket(port);
 
@@ -79,10 +83,14 @@ public class LscClient {
                         .replace("[new_port]", port + 1 + "")
                 );
 
-                System.out.println(lr.r("Err_BindException_Hint"));
+                isHint = true;
 
                 port ++;
             }
+        }
+
+        if (isHint) {
+            System.out.println(lr.r("Err_BindException_Hint"));
         }
 
         System.out.println(lr.r("Str_Welcome"));
@@ -106,7 +114,6 @@ public class LscClient {
 
             // 多线程
             new Thread(new LscClientRunnable(socket)).start();
-
         }
     }
 
@@ -127,6 +134,23 @@ public class LscClient {
         Object object = objectInputStream.readObject();
 
         String packageName = bufferedReader.readLine();
+
+        // 保存聊天信息
+        String address = socket.getLocalAddress()
+                .toString().trim()
+                .replace("\\", "")
+                .replace("/", "");
+
+        messageManager.createMember(address);
+
+
+        messageManager.writeMember(
+                messageManager.addMessageToMember(
+                        messageManager.readMember(address),
+                        new MessageContainer(object, packageName)
+                ),
+                address
+        );
 
         System.out.println(" >> " + socket.getInetAddress() + " : " +
                 getModuleMessage(packageName.trim()).onReceiveMessage(object));

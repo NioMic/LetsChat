@@ -4,7 +4,7 @@ import com.cagrs.letschat.Core.Message;
 
 import java.io.Serializable;
 
-public class MessageCheck extends Message implements Serializable {
+public class MessageCheck extends Message{
     @Override
     public String getPackageName() {
         return "check";

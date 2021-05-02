@@ -6,20 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        /*Parent root = FXMLLoader.load(getClass().getResource("Layouts/layout_main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Layouts/layout_main.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
-*/
     }
 
 

@@ -3,7 +3,7 @@ package com.cagrs.letschat.Core;
 import java.io.Serializable;
 import java.util.Date;
 
-abstract public class Message implements Serializable {
+abstract public class Message {
 
     /**
      * 此消息身份
