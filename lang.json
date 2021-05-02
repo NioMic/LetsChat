@@ -1,0 +1,12 @@
+{
+  "Err_IOException" : "异常 : IOException",
+  "Err_ClassNotFoundException" : "异常 : 无法找到类",
+  "Err_BindException" : "异常 : 端口 [port] 已被占用！已为您切换到了 [new_port] 端口。",
+  "Err_BindException_Hint" : "端口的不同会导致已和原来端口连接的设备无法将消息正确地发送到您的设备上。\n如果您需要使用以前的端口，请关闭占用原端口的进程！",
+
+  "Str_Welcome" : "======欢迎使用 Let's chat 点对点聊天软件======",
+  "Str_List" : "\t您的电脑IP为 : [ip]\n\t已为您创建端口为 [port] 的接收端以接受消息\n",
+  "Str_SuccessRequire" : "成功发送！",
+  "Str_Fail_Timeout" : "失败！消息发送超时。",
+  "Str_Fail_Deny" : "失败！对方拒绝接收您的消息。"
+}
